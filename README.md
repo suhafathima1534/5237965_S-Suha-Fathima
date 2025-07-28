@@ -1,8 +1,4 @@
 # 5237965_S-Suha-Fathima
 
-### Agile Certificate
-![Agile Certificate](Agile_SDLC_certificate/Agile_Certificate.jpeg)
+![Agile Certificate](https://raw.githubusercontent.com/suhafathima1534/5237965_S-Suha-Fathima/2c8b3906e97fc74c9ab200476bb79fe719aaca46/Agile_Certificate.jpeg)
 
-### Git Certificate
-
-![Git Certificate](GIT_Certificate/GIT_Certificate )
