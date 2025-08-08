@@ -1,5 +1,5 @@
+// MIN-MAX SUM - SOLUTION PROGRAM
 
-MIN-MAX SUM -SOLUTION PROBLEM
 #include <stdio.h>
 
 int main() {
