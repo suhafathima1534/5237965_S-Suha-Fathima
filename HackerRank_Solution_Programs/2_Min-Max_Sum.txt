@@ -1,0 +1,31 @@
+
+MIN-MAX SUM -SOLUTION PROBLEM
+#include <stdio.h>
+
+int main() {
+    long arr[5];
+    long sum = 0, min, max;
+    int i;
+
+    // Take input of 5 integers
+    for (i = 0; i < 5; i++) {
+        scanf("%ld", &arr[i]);
+        sum += arr[i];
+    }
+
+    // Initialize min and max with the sum excluding the first element
+    min = sum - arr[0];
+    max = sum - arr[0];
+
+    // Find the minimum and maximum by excluding each element once
+    for (i = 1; i < 5; i++) {
+        long temp = sum - arr[i];
+        if (temp < min) min = temp;
+        if (temp > max) max = temp;
+    }
+
+    // Print the result
+    printf("%ld %ld\n", min, max);
+
+    return 0;
+}
