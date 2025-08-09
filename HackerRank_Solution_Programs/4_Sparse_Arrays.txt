@@ -1,0 +1,43 @@
+// SPARSE ARRAYS - SOLUTION PROGRAM
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_N 1000
+#define MAX_LEN 21
+
+int main() {
+    int n, q;
+    char strings[MAX_N][MAX_LEN];
+    char queries[MAX_N][MAX_LEN];
+    int counts[MAX_N] = {0};
+
+    // Read n and strings
+    scanf("%d", &n);
+    for(int i = 0; i < n; i++) {
+        scanf("%s", strings[i]);
+    }
+
+    // Read q and queries
+    scanf("%d", &q);
+    for(int i = 0; i < q; i++) {
+        scanf("%s", queries[i]);
+    }
+
+    // For each query, count occurrences in strings
+    for(int i = 0; i < q; i++) {
+        counts[i] = 0;  // Initialize count for this query
+        for(int j = 0; j < n; j++) {
+            if(strcmp(queries[i], strings[j]) == 0) {
+                counts[i]++;
+            }
+        }
+    }
+
+    // Output results
+    for(int i = 0; i < q; i++) {
+        printf("%d\n", counts[i]);
+    }
+
+    return 0;
+}

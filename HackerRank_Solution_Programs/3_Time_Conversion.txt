@@ -1,0 +1,33 @@
+// TIME CONVERSION - SOLUION PROGRAM
+
+#include <stdio.h>
+#include <string.h>
+
+void timeConversion(char *s) {
+    int hour;
+    char period[3]; // AM or PM
+
+    // Extract hour, minutes, seconds, and AM/PM
+    sscanf(s, "%2d", &hour);
+    strncpy(period, s+8, 2);
+    period[2] = '\0'; // Null terminate
+
+    // If time is PM and not 12PM, add 12 hours
+    if (strcmp(period, "PM") == 0 && hour != 12) {
+        hour += 12;
+    } 
+    // If time is AM and it is 12AM, set hour to 0
+    if (strcmp(period, "AM") == 0 && hour == 12) {
+        hour = 0;
+    }
+
+    // Print the result in 24-hour format
+    printf("%02d:%c%c:%c%c\n", hour, s[3], s[4], s[6], s[7]);
+}
+
+int main() {
+    char time[11];
+    scanf("%s", time); // Input: hh:mm:ssAM or hh:mm:ssPM
+    timeConversion(time);
+    return 0;
+}
