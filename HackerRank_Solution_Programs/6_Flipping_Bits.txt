@@ -1,0 +1,21 @@
+// FLIPPING BITS - SOLUTION PRORAM
+
+#include <stdio.h>
+
+unsigned int flippingBits(unsigned int n) {
+    // Flip all 32 bits using XOR with 0xFFFFFFFF
+    return n ^ 0xFFFFFFFF;
+}
+
+int main() {
+    int q; // Number of queries
+    scanf("%d", &q);
+
+    for (int i = 0; i < q; i++) {
+        unsigned int n;
+        scanf("%u", &n);
+        unsigned int result = flippingBits(n);
+        printf("%u\n", result);
+    }
+    return 0;
+}

@@ -1,0 +1,35 @@
+// DIAGONAL DIFFERENCE - SOLUTION PROGRAM
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int diagonalDifference(int arr[][100], int n) {
+    int primarySum = 0, secondarySum = 0;
+
+    for (int i = 0; i < n; i++) {
+        primarySum += arr[i][i];           // Sum for left-to-right (primary) diagonal
+        secondarySum += arr[i][n - i - 1]; // Sum for right-to-left (secondary) diagonal
+    }
+
+    return abs(primarySum - secondarySum); // Absolute difference
+}
+
+// DIAGONAL DIFFERENCE
+
+int main() {
+    int n;
+    int arr[100][100];
+
+    scanf("%d", &n); // Read matrix size
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            scanf("%d", &arr[i][j]);
+        }
+    }
+
+    int result = diagonalDifference(arr, n);
+    printf("%d\n", result);
+
+    return 0;
+}

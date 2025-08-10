@@ -1,0 +1,23 @@
+// COUNTING SORT 1 - SOLUTION PROGRAM
+
+#include <stdio.h>
+
+int main() {
+    int n, num;
+    int freq[100] = {0}; // Initialize all to zero
+
+    scanf("%d", &n); // Number of elements
+
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &num);
+        freq[num]++; // Increment frequency for this number
+    }
+
+    // Print the frequency array
+    for (int i = 0; i < 100; i++) {
+        printf("%d ", freq[i]);
+    }
+    printf("\n"); // New line at the end
+
+    return 0;
+}
