@@ -1,0 +1,46 @@
+// PERMUTING TWO ARRAYS
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Comparison functions for qsort
+int cmp_asc(const void *a, const void *b) {
+    return (*(int *)a - *(int *)b);
+}
+int cmp_desc(const void *a, const void *b) {
+    return (*(int *)b - *(int *)a);
+}
+
+// Core function to solve one query
+const char* twoArrays(int n, int k, int A[], int B[]) {
+    // Sort A ascending, B descending
+    qsort(A, n, sizeof(int), cmp_asc);
+    qsort(B, n, sizeof(int), cmp_desc);
+
+    // Check if all A[i] + B[i] >= k
+    for (int i = 0; i < n; i++) {
+        if (A[i] + B[i] < k) {
+            return "NO";
+        }
+    }
+    return "YES";
+}
+
+int main() {
+    int q;
+    scanf("%d", &q);
+
+    for (int query = 0; query < q; query++) {
+        int n, k;
+        scanf("%d %d", &n, &k);
+
+        int A[1000], B[1000]; // as per constraint, n <= 1000
+
+        for (int i = 0; i < n; i++) scanf("%d", &A[i]);
+        for (int i = 0; i < n; i++) scanf("%d", &B[i]);
+
+        printf("%s\n", twoArrays(n, k, A, B));
+    }
+
+    return 0;
+}
