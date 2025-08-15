@@ -1,0 +1,26 @@
+// XOR STRINGS 2 - SOLUTION PROGRAM
+
+#include <stdio.h>
+#include <string.h>
+
+void strings_xor(const char *s, const char *t) {
+    int n = strlen(s);
+    char result[n + 1];
+
+    for (int i = 0; i < n; i++) {
+        result[i] = (s[i] == t[i]) ? '0' : '1';
+    }
+
+    result[n] = '\0';
+    printf("%s\n", result);
+}
+
+int main() {
+    char s[10001], t[10001];
+    scanf("%s", s);
+    scanf("%s", t);
+
+    strings_xor(s, t);
+
+    return 0;
+}
