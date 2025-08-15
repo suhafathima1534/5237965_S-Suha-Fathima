@@ -1,0 +1,23 @@
+// ZIG ZAG SEQUENCE - SOLUTION PROGRAM
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int cmp(const void *a, const void *b) { return (*(int*)a - *(int*)b); }
+
+int main() {
+    int t; scanf("%d", &t);
+    while (t--) {
+        int n; scanf("%d", &n);
+        int a[n];
+        for (int i = 0; i < n; i++) scanf("%d", &a[i]);
+        qsort(a, n, sizeof(int), cmp);
+        int mid = (n - 1) / 2, tmp = a[mid];
+        a[mid] = a[n - 1]; a[n - 1] = tmp;
+        for (int l = mid + 1, r = n - 2; l < r; l++, r--) {
+            tmp = a[l]; a[l] = a[r]; a[r] = tmp;
+        }
+        for (int i = 0; i < n; i++) printf("%d%c", a[i], i == n - 1 ? '\n' : ' ');
+    }
+    return 0;
+}
