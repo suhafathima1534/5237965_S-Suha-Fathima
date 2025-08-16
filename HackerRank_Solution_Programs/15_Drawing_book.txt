@@ -1,0 +1,23 @@
+// DRAWING BOOK - SOLUTION PROGRAM
+
+#include <stdio.h>
+
+int main() {
+    int n, p;
+    scanf("%d", &n);
+    scanf("%d", &p);
+
+    // From front: each turn reveals 2 pages, so p/2
+    int from_front = p / 2;
+
+    // From back: depends on whether n is odd or even
+    int from_back = (n / 2) - (p / 2);
+
+    // Print minimum of the two options
+    if (from_front < from_back)
+        printf("%d\n", from_front);
+    else
+        printf("%d\n", from_back);
+
+    return 0;
+}

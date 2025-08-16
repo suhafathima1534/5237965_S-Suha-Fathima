@@ -1,0 +1,39 @@
+// CAESER CIPHER
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    int n, k;
+    char s[105];
+
+    // Input section
+    scanf("%d", &n);
+    scanf("%s", s);  // No spaces in input string per constraints
+    scanf("%d", &k);
+
+    // Make sure rotation is within alphabet range
+    k = k % 26;
+
+    for (int i = 0; i < n; i++) {
+        char c = s[i];
+
+        // Encrypt uppercase letter
+        if (c >= 'A' && c <= 'Z') {
+            c = ((c - 'A' + k) % 26) + 'A';
+            printf("%c", c);
+        }
+        // Encrypt lowercase letter
+        else if (c >= 'a' && c <= 'z') {
+            c = ((c - 'a' + k) % 26) + 'a';
+            printf("%c", c);
+        }
+        // Leave non-letter characters unchanged
+        else {
+            printf("%c", c);
+        }
+    }
+    printf("\n");
+
+    return 0;
+}

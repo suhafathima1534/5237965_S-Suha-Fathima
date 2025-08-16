@@ -1,0 +1,18 @@
+// TWO BREAKERS - SOLUTION PROGRAM
+
+#include <stdio.h>
+
+int main() {
+    int t;
+    scanf("%d", &t);
+    while (t--) {
+        int n, m;
+        scanf("%d %d", &n, &m);
+
+        if (m == 1 || n % 2 == 0)
+            printf("2\n"); // Player 2 wins
+        else
+            printf("1\n"); // Player 1 wins
+    }
+    return 0;
+}
