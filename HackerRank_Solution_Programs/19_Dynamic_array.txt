@@ -1,0 +1,29 @@
+// DYNAMIC ARRAY - SOLUTION PROGRAM
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n, q; 
+    scanf("%d %d", &n, &q);
+
+    int **arr = calloc(n, sizeof(int*));   // n empty arrays
+    int *sizes = calloc(n, sizeof(int));   // sizes of each array
+    int lastAnswer = 0;
+
+    while (q--) {
+        int type, x, y;
+        scanf("%d %d %d", &type, &x, &y);
+        int idx = (x ^ lastAnswer) % n;
+
+        if (type == 1) {   // append
+            arr[idx] = realloc(arr[idx], (sizes[idx] + 1) * sizeof(int));
+            arr[idx][sizes[idx]++] = y;
+        } else {           // fetch
+            lastAnswer = arr[idx][y % sizes[idx]];
+            printf("%d\n", lastAnswer);
+        }
+    }
+    return 0;
+}
+
