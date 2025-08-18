@@ -1,0 +1,28 @@
+// COUNTER GAME - SOLUTION PROGRAM
+
+#include <stdio.h>
+
+int main() {
+    int t;
+    scanf("%d", &t);
+    while (t--) {
+        unsigned long long n;
+        scanf("%llu", &n);
+        int turns = 0;
+        while (n > 1) {
+            // If n is a power of 2
+            if ((n & (n - 1)) == 0) {
+                n = n / 2;
+            } else {
+                // Reduce by the largest power of 2 less than n
+                unsigned long long p = 1ULL << 63;
+                while (p > n) p >>= 1;
+                n = n - p;
+            }
+            turns++;
+        }
+        if (turns % 2) printf("Louise\n");
+        else printf("Richard\n");
+    }
+    return 0;
+}

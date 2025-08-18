@@ -1,0 +1,25 @@
+// SUM VS XOR - SOLUTION PROGRAM
+
+#include <stdio.h>
+
+int main() {
+    unsigned long long n, count = 0;
+    scanf("%llu", &n);
+
+    if (n == 0) {
+        printf("1\n");
+        return 0;
+    }
+
+    // The answer is 2^(number of zero bits in n)
+    unsigned long long temp = n;
+    while (temp) {
+        if ((temp & 1) == 0) count++;
+        temp >>= 1;
+    }
+
+    // 2^count
+    unsigned long long ans = 1ULL << count;
+    printf("%llu\n", ans);
+    return 0;
+}
