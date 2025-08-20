@@ -1,0 +1,80 @@
+// THE BOOMERAN GAME - SOLUTION PROGRAM 
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAXR 200
+#define MAXC 201
+
+int r, c, n;
+char grid0[MAXR][MAXC], grid1[MAXR][MAXC], grid2[MAXR][MAXC], full[MAXR][MAXC];
+
+// Directions: up, down, left, right
+int dr[] = {-1, 1, 0, 0};
+int dc[] = {0, 0, -1, 1};
+
+// Helper to construct the 'full bombs' grid
+void makeFull() {
+    for (int i = 0; i < r; i++)
+        for (int j = 0; j < c; j++)
+            full[i][j] = 'O';
+}
+
+// Detonate bombs on grid src, result in grid dst
+void detonate(char src[MAXR][MAXC], char dst[MAXR][MAXC]) {
+    makeFull(); // Start from full grid
+    for (int i = 0; i < r; i++)
+        for (int j = 0; j < c; j++)
+            dst[i][j] = 'O';
+
+    for (int i = 0; i < r; i++) {
+        for (int j = 0; j < c; j++) {
+            if (src[i][j] == 'O') {
+                dst[i][j] = '.'; // Blow up central
+                for (int d = 0; d < 4; d++) { // Blow up neighbors
+                    int ni = i + dr[d], nj = j + dc[d];
+                    if (ni >= 0 && ni < r && nj >= 0 && nj < c)
+                        dst[ni][nj] = '.';
+                }
+            }
+        }
+    }
+}
+
+void printGrid(char g[MAXR][MAXC]) {
+    for (int i = 0; i < r; i++) {
+        g[i][c] = '\0';  // Null-terminate each row
+        printf("%s\n", g[i]);
+    }
+}
+
+int main() {
+    scanf("%d %d %d", &r, &c, &n);
+    for (int i = 0; i < r; i++)
+        scanf("%s", grid0[i]);
+
+    // Special cases
+    if (n == 1) {
+        printGrid(grid0);
+        return 0;
+    }
+
+    // Fill with bombs for even times
+    if (n % 2 == 0) {
+        makeFull();
+        printGrid(full);
+        return 0;
+    }
+
+    // At odd n >= 3, there are two possible grids depending on period
+    detonate(grid0, grid1);         // At t=3 (first detonation)
+    detonate(grid1, grid2);         // At t=5 (second detonation)
+
+    if ((n - 3) % 4 == 0)
+        printGrid(grid1);
+    else
+        printGrid(grid2);
+
+    return 0;
+}
