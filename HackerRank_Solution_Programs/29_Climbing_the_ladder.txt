@@ -1,0 +1,30 @@
+// CLIMBING THE LADDER - SOLUTION PROGRAM
+
+#include <stdio.h>
+
+int main() {
+    int n, m;
+    scanf("%d", &n);
+
+    int ranked[n], i, j;
+    for(i = 0; i < n; i++) scanf("%d", &ranked[i]);
+
+    scanf("%d", &m);
+    int player[m];
+    for(i = 0; i < m; i++) scanf("%d", &player[i]);
+
+    // remove duplicates from ranked
+    int unique[n], size = 0;
+    unique[size++] = ranked[0];
+    for(i = 1; i < n; i++)
+        if(ranked[i] != ranked[i-1]) unique[size++] = ranked[i];
+
+    // start from bottom of leaderboard
+    j = size - 1;
+    for(i = 0; i < m; i++) {
+        while(j >= 0 && player[i] >= unique[j]) j--;
+        printf("%d\n", j + 2);
+    }
+
+    return 0;
+}
