@@ -1,0 +1,22 @@
+// REVERSE A DOUBLY LIKNED LIST - SOLUTION PROGRAM 
+
+DoublyLinkedListNode* reverse(DoublyLinkedListNode* llist) {
+    if (llist == NULL) return NULL;   // empty list
+
+    DoublyLinkedListNode* curr = llist;
+    DoublyLinkedListNode* temp = NULL;
+
+    // swap next and prev for all nodes
+    while (curr != NULL) {
+        temp = curr->prev;
+        curr->prev = curr->next;
+        curr->next = temp;
+        curr = curr->prev;   // move to "next" (which was prev before swap)
+    }
+
+    // new head is the last processed node
+    if (temp != NULL)
+        llist = temp->prev;
+
+    return llist;
+}
