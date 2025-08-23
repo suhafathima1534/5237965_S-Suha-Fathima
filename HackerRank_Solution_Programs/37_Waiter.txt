@@ -1,0 +1,64 @@
+// Waiter - Solution Program
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// helper: check prime
+int isPrime(int n) {
+    if (n < 2) return 0;
+    for (int i = 2; i * i <= n; i++)
+        if (n % i == 0) return 0;
+    return 1;
+}
+
+// generate first q primes
+void getPrimes(int q, int primes[]) {
+    int n = 2, count = 0;
+    while (count < q) {
+        if (isPrime(n)) primes[count++] = n;
+        n++;
+    }
+}
+
+int main() {
+    int n, q;
+    scanf("%d %d", &n, &q);
+
+    int plates[n];
+    for (int i = 0; i < n; i++)
+        scanf("%d", &plates[i]);
+
+    int primes[q];
+    getPrimes(q, primes);
+
+    // stack A and B logic using arrays
+    int topA = n, A[n], B[n], res[n], idx = 0;
+    for (int i = 0; i < n; i++) A[i] = plates[i];  // initial stack
+
+    for (int i = 0; i < q; i++) {
+        int p = primes[i], topB = 0, newA = 0, tempA[n];
+        // process stack A from top (end of array)
+        for (int j = topA - 1; j >= 0; j--) {
+            if (A[j] % p == 0)
+                B[topB++] = A[j];   // divisible -> B
+            else
+                tempA[newA++] = A[j]; // not divisible -> next A
+        }
+        // print B from top to bottom
+        for (int j = topB - 1; j >= 0; j--)
+            res[idx++] = B[j];
+        // set new A
+        for (int j = 0; j < newA; j++) A[j] = tempA[j];
+        topA = newA;
+    }
+
+    // leftover plates in A go to result
+    for (int j = topA - 1; j >= 0; j--)
+        res[idx++] = A[j];
+
+    // print result
+    for (int i = 0; i < idx; i++)
+        printf("%d\n", res[i]);
+
+    return 0;
+}

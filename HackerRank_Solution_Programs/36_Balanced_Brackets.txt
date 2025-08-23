@@ -1,0 +1,38 @@
+// Balanced Brackets - Solution Program
+
+#include <stdio.h>
+#include <string.h>
+
+char stack[1000];
+int top;
+
+int match(char open, char close) {
+    return (open=='(' && close==')') ||
+           (open=='[' && close==']') ||
+           (open=='{' && close=='}');
+}
+
+char* isBalanced(char *s) {
+    top = -1;
+    for (int i=0; s[i]; i++) {
+        char c = s[i];
+        if (c=='(' || c=='[' || c=='{')
+            stack[++top] = c;           // push
+        else {
+            if (top==-1 || !match(stack[top], c))
+                return "NO";
+            top--;                      // pop
+        }
+    }
+    return (top==-1) ? "YES" : "NO";
+}
+
+int main() {
+    int n; scanf("%d", &n);
+    char s[1000];
+    while (n--) {
+        scanf("%s", s);
+        printf("%s\n", isBalanced(s));
+    }
+    return 0;
+}
