@@ -1,0 +1,59 @@
+// QHEAP1 - Solution program
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 200000
+
+int heap[MAX], size = 0;
+
+// swap utility
+void swap(int *a, int *b){ int t=*a; *a=*b; *b=t; }
+
+// push into min-heap
+void push(int x){
+    int i = size++;
+    heap[i] = x;
+    while(i>0){
+        int p=(i-1)/2;
+        if(heap[p] <= heap[i]) break;
+        swap(&heap[p], &heap[i]);
+        i=p;
+    }
+}
+
+// heapify down
+void heapify(int i){
+    int l=2*i+1, r=2*i+2, m=i;
+    if(l<size && heap[l]<heap[m]) m=l;
+    if(r<size && heap[r]<heap[m]) m=r;
+    if(m!=i){ swap(&heap[i],&heap[m]); heapify(m); }
+}
+
+// pop root
+int pop(){
+    int val=heap[0];
+    heap[0]=heap[--size];
+    heapify(0);
+    return val;
+}
+
+int main(){
+    int Q; scanf("%d",&Q);
+    int x, type;
+    // lazy deletion using a map of removed elements
+    int *del = (int*)calloc(1000001,sizeof(int));
+
+    while(Q--){
+        scanf("%d",&type);
+        if(type==1){ scanf("%d",&x); push(x); }
+        else if(type==2){ scanf("%d",&x); del[x]++; }
+        else{
+            // skip removed values
+            while(size && del[heap[0]]){ del[heap[0]]--; pop(); }
+            printf("%d\n",heap[0]);
+        }
+    }
+    free(del);
+    return 0;
+}

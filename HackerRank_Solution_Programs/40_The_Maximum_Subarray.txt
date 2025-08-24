@@ -1,0 +1,30 @@
+// The Maximum Subarray - Solution Program
+
+#include <stdio.h>
+
+void maxSubarray(int arr[], int n) {
+    int maxSub = arr[0], curr = arr[0];
+    int maxElem = arr[0], subseqSum = (arr[0] > 0 ? arr[0] : 0);
+
+    for(int i=1; i<n; i++) {
+        curr = (arr[i] > curr + arr[i]) ? arr[i] : curr + arr[i];
+        if(curr > maxSub) maxSub = curr;
+
+        if(arr[i] > 0) subseqSum += arr[i];
+        if(arr[i] > maxElem) maxElem = arr[i];
+    }
+
+    if(subseqSum == 0) subseqSum = maxElem;
+    printf("%d %d\n", maxSub, subseqSum);
+}
+
+int main() {
+    int t; scanf("%d", &t);
+    while(t--) {
+        int n; scanf("%d", &n);
+        int arr[n];
+        for(int i=0;i<n;i++) scanf("%d", &arr[i]);
+        maxSubarray(arr, n);
+    }
+    return 0;
+}

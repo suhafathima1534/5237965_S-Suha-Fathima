@@ -1,0 +1,42 @@
+// Lego Blocks- Solution Program
+
+#include <stdio.h>
+#define MOD 1000000007
+
+long long modPow(long long base, long long exp) {
+    long long res = 1;
+    while(exp) {
+        if(exp & 1) res = (res * base) % MOD;
+        base = (base * base) % MOD;
+        exp >>= 1;
+    }
+    return res;
+}
+
+int main() {
+    int t; scanf("%d", &t);
+    int n, m;
+    while(t--) {
+        scanf("%d %d", &n, &m);
+
+        long long row[m+1], ways[m+1], solid[m+1];
+        row[0] = 1;
+
+        for(int i=1;i<=m;i++) {
+            row[i] = 0;
+            for(int b=1;b<=4;b++) if(i-b>=0) row[i] = (row[i] + row[i-b]) % MOD;
+        }
+
+        for(int i=1;i<=m;i++) ways[i] = modPow(row[i], n);
+
+        solid[0] = 0;
+        for(int i=1;i<=m;i++) {
+            solid[i] = ways[i];
+            for(int k=1;k<i;k++)
+                solid[i] = (solid[i] - (solid[k] * ways[i-k]) % MOD + MOD) % MOD;
+        }
+
+        printf("%lld\n", solid[m]);
+    }
+    return 0;
+}
