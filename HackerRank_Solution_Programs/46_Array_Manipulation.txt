@@ -1,0 +1,32 @@
+// Array Manipulation - Solution Program
+
+#include <stdio.h>
+
+long arrayManipulation(int n, int q, int queries[q][3]) {
+    long arr[n+2]; 
+    for(int i=0;i<=n+1;i++) arr[i]=0;
+
+    for(int i=0;i<q;i++) {
+        int a=queries[i][0], b=queries[i][1], k=queries[i][2];
+        arr[a] += k;
+        arr[b+1] -= k;
+    }
+
+    long max=0, curr=0;
+    for(int i=1;i<=n;i++) {
+        curr += arr[i];
+        if(curr > max) max = curr;
+    }
+    return max;
+}
+
+int main() {
+    int n,q;
+    scanf("%d %d",&n,&q);
+    int queries[q][3];
+    for(int i=0;i<q;i++)
+        scanf("%d %d %d",&queries[i][0],&queries[i][1],&queries[i][2]);
+
+    printf("%ld\n", arrayManipulation(n,q,queries));
+    return 0;
+}

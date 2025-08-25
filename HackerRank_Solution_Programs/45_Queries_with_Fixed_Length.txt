@@ -1,0 +1,29 @@
+// Queries with Fixed Length - Solution program
+
+#include <stdio.h>
+
+int minOfMax(int arr[], int n, int k) {
+    int dq[n], front=0, back=0, minVal=1e9;
+
+    // first window
+    for(int i=0;i<k;i++) {
+        while(front<back && arr[i]>=arr[dq[back-1]]) back--;
+        dq[back++] = i;
+    }
+
+    for(int i=k;i<n;i++) {
+        if(arr[dq[front]] < minVal) minVal = arr[dq[front]];
+        while(front<back && dq[front] <= i-k) front++;
+        while(front<back && arr[i]>=arr[dq[back-1]]) back--;
+        dq[back++] = i;
+    }
+    if(arr[dq[front]] < minVal) minVal = arr[dq[front]];
+    return minVal;
+}
+
+int main() {
+    int n,q; scanf("%d %d",&n,&q);
+    int arr[n]; for(int i=0;i<n;i++) scanf("%d",&arr[i]);
+    while(q--) { int k; scanf("%d",&k); printf("%d\n",minOfMax(arr,n,k)); }
+    return 0;
+}
